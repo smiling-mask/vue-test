@@ -1,5 +1,8 @@
 <template>
-  <div class="custom-header">CustomHeader</div>
+  <div class="custom-header">
+    <img id="custom-header-logo" src="@/assets/images/balaan.png" />
+    <p id="custom-header-text">Balaan Test</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,3 +12,23 @@ export default defineComponent({
   name: 'CustomHeader',
 });
 </script>
+
+<style>
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 75rem;
+}
+
+#custom-header-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 1rem 0;
+}
+
+#custom-header-text {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+</style>

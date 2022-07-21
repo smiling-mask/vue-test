@@ -4,19 +4,21 @@ import HomeView from '../views/HomeView.vue';
 import SignInView from '../views/SignInView.vue';
 import SignInResultView from '../views/SignInResultView.vue';
 
+import { Path } from '@/Constants';
+
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: `/${Path.Home}`,
     name: 'home',
     component: HomeView,
   },
   {
-    path: '/sign-in',
+    path: `/${Path.SignIn}`,
     name: 'signinview',
     component: SignInView,
   },
   {
-    path: '/sign-in-result',
+    path: `/${Path.SignInResult}`,
     name: 'signinresult',
     component: SignInResultView,
   },
