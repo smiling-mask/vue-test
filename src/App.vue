@@ -1,6 +1,8 @@
 <template>
   <CustomHeader />
-  <router-view />
+  <div id="container">
+    <router-view />
+  </div>
   <CustomFooter />
 </template>
 
@@ -19,11 +21,27 @@ export default defineComponent({
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap');
+
+body {
+  background-color: #000000;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
+}
+
+#container {
+  min-height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
