@@ -9,17 +9,17 @@ import { Path } from '@/Constants';
 const routes: Array<RouteRecordRaw> = [
   {
     path: `/${Path.Home}`,
-    name: 'home',
+    name: 'HomeView',
     component: HomeView,
   },
   {
     path: `/${Path.SignIn}`,
-    name: 'signinview',
+    name: 'SignInView',
     component: SignInView,
   },
   {
     path: `/${Path.SignInResult}`,
-    name: 'signinresult',
+    name: 'SignInResultView',
     component: SignInResultView,
   },
 ];
