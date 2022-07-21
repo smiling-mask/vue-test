@@ -1,10 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <CustomHeader />
   <router-view />
+  <CustomFooter />
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import CustomHeader from '@/components/CustomHeader.vue';
+import CustomFooter from '@/components/CustomFooter.vue';
+
+export default defineComponent({
+  name: 'HomeView',
+  components: {
+    CustomHeader,
+    CustomFooter,
+  },
+});
+</script>
 
 <style>
 #app {
@@ -13,18 +25,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
