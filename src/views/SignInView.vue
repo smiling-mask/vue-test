@@ -8,7 +8,7 @@
           <input name="userEmail" v-model.lazy="signInFormData.userEmail.value" />
         </div>
         <div v-show="signInFormData.userEmail.isError" class="error-text">
-          {{ signInFormData.userEmail.errorMessage }}
+          이메일 주소 형식과 일치하지 않습니다.
         </div>
         <div class="sign-in-form-row">
           <label for="userPassword">비밀번호</label>
@@ -19,7 +19,7 @@
           />
         </div>
         <div v-show="signInFormData.userPassword.isError" class="error-text">
-          {{ signInFormData.userPassword.errorMessage }}
+          비밀번호는 영어 대,소문자 및 특수문자로 8자 이상만 가능합니다.
         </div>
         <div class="sign-in-form-row">
           <label for="userPasswordAccept">비밀번호 확인</label>
@@ -30,7 +30,7 @@
           />
         </div>
         <div v-show="signInFormData.userPasswordAccept.isError" class="error-text">
-          {{ signInFormData.userPasswordAccept.errorMessage }}
+          비밀번호와 같은 문자열을 입력해주세요.
         </div>
       </div>
       <div v-show="signInTab === 1" class="sign-in-form-container">
@@ -39,14 +39,14 @@
           <input name="userName" v-model.lazy="signInFormData.userName.value" />
         </div>
         <div v-show="signInFormData.userName.isError" class="error-text">
-          {{ signInFormData.userName.errorMessage }}
+          이름은 2글자 이상의 한글 완성형 혹은 3글자 이상의 영어입니다.
         </div>
         <div class="sign-in-form-row">
           <label for="userPhone">연락처</label>
           <input name="userPhone" v-model.lazy="signInFormData.userPhone.value" />
         </div>
         <div v-show="signInFormData.userPhone.isError" class="error-text">
-          {{ signInFormData.userPhone.errorMessage }}
+          휴대폰번호 형식과 일치하지 않습니다.
         </div>
         <div class="sign-in-form-row">
           <label for="userAddress">주소</label>
@@ -57,6 +57,9 @@
             <input name="userAddress" v-model.lazy="signInFormData.userPostCode.value" />
             <input name="userAddress" v-model.lazy="signInFormData.userAddress.value" />
           </div>
+        </div>
+        <div v-show="signInFormData.userAddress.isError" class="error-text">
+          우편번호를 검색해주세요.
         </div>
       </div>
       <div v-show="signInTab === 2" class="sign-in-form-container">
@@ -70,7 +73,7 @@
           </div>
         </div>
         <div v-show="signInFormData.userCardNumber.isError" class="error-text">
-          {{ signInFormData.userCardNumber.errorMessage }}
+          유효한 카드번호가 아닙니다.
         </div>
       </div>
     </form>
@@ -87,7 +90,10 @@
 
 <script lang="ts">
 declare const window: any;
+
 import { defineComponent, ref, computed, reactive, watch } from 'vue';
+import router from '@/router';
+import { Path } from '@/Constants';
 
 export default defineComponent({
   name: 'SignInView',
@@ -97,39 +103,36 @@ export default defineComponent({
         value: '',
         regex: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
         isError: false,
-        errorMessage: '이메일 주소 형식과 일치하지 않습니다.',
       },
       userPassword: {
         value: '',
         // eslint-disable-next-line no-useless-escape
         regex: /^[a-zA-Z\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{8,}/i,
         isError: false,
-        errorMessage: '비밀번호는 영어 대,소문자 및 특수문자로 8자 이상만 가능합니다.',
       },
       userPasswordAccept: {
         value: '',
         // eslint-disable-next-line no-useless-escape
         regex: /^[a-zA-Z\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]{8,}/i,
         isError: false,
-        errorMessage: '비밀번호와 같은 문자열을 입력해주세요.',
       },
       userName: {
         value: '',
         regex: /^[가-힣]{2,}$|^[a-zA-Z]{3,}$/,
         isError: false,
-        errorMessage: '이름은 2글자 이상의 한글 완성형 혹은 3글자 이상의 영어입니다.',
       },
       userPhone: {
         value: '',
         regex: /^0\d{2}-\d{3,4}-\d{4}$|^0\d{9,10}|^0\d{2}\s\d{3,4}\s\d{4}/i,
         isError: false,
-        errorMessage: '휴대폰번호 형식과 일치하지 않습니다.',
       },
       userPostCode: {
         value: '',
+        isError: false,
       },
       userAddress: {
         value: '',
+        isError: false,
       },
       userCardNumber: {
         value: {
@@ -327,9 +330,81 @@ export default defineComponent({
     };
 
     const onNextButtonClick = () => {
-      if (signInTab.value === 2) return;
+      const isEmpty = (data: string) => {
+        return data === '';
+      };
 
-      signInTab.value += 1;
+      const isValidated = (data: string, isError: boolean) => {
+        if (isEmpty(data) || isError) return false;
+
+        return true;
+      };
+
+      if (signInTab.value === 0) {
+        if (
+          isValidated(signInFormData.userEmail.value, signInFormData.userEmail.isError) &&
+          isValidated(signInFormData.userPassword.value, signInFormData.userPassword.isError) &&
+          isValidated(
+            signInFormData.userPasswordAccept.value,
+            signInFormData.userPasswordAccept.isError,
+          )
+        ) {
+          signInTab.value += 1;
+        } else {
+          if (isEmpty(signInFormData.userEmail.value)) {
+            return (signInFormData.userEmail.isError = true);
+          }
+
+          if (isEmpty(signInFormData.userPassword.value)) {
+            return (signInFormData.userPassword.isError = true);
+          }
+
+          if (isEmpty(signInFormData.userPasswordAccept.value)) {
+            return (signInFormData.userPasswordAccept.isError = true);
+          }
+        }
+
+        return;
+      }
+
+      if (signInTab.value === 1) {
+        if (
+          isValidated(signInFormData.userName.value, signInFormData.userName.isError) &&
+          isValidated(signInFormData.userPhone.value, signInFormData.userPhone.isError) &&
+          !isEmpty(signInFormData.userAddress.value)
+        ) {
+          signInTab.value += 1;
+        } else {
+          if (isEmpty(signInFormData.userName.value)) {
+            return (signInFormData.userName.isError = true);
+          }
+
+          if (isEmpty(signInFormData.userPhone.value)) {
+            return (signInFormData.userPhone.isError = true);
+          }
+
+          if (isEmpty(signInFormData.userAddress.value)) {
+            return (signInFormData.userAddress.isError = true);
+          }
+        }
+
+        return;
+      }
+
+      if (signInTab.value === 2) {
+        if (
+          !isEmpty(signInFormData.userCardNumber.value.value1) &&
+          !isEmpty(signInFormData.userCardNumber.value.value2) &&
+          !isEmpty(signInFormData.userCardNumber.value.value3) &&
+          !isEmpty(signInFormData.userCardNumber.value.value4) &&
+          !signInFormData.userCardNumber.isError
+        ) {
+          // TODO 저장
+          router.push({ path: `/${Path.SignInResult}` });
+        } else {
+          signInFormData.userCardNumber.isError = true;
+        }
+      }
     };
 
     const onSearchAddressButtonClick = () => {
@@ -357,7 +432,7 @@ export default defineComponent({
 
           signInFormData.userPostCode.value = data.zonecode;
           signInFormData.userAddress.value = fullAddress;
-          console.log('oncomplete');
+          signInFormData.userAddress.isError = false;
         },
       }).open();
     };
@@ -503,6 +578,7 @@ export default defineComponent({
 .error-text {
   margin: 0.75rem 0 0 30%;
   color: #ff0000;
+  font-size: 0.75rem;
   text-align: left;
 }
 </style>
