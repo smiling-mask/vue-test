@@ -9,18 +9,19 @@ import { Path } from '@/Constants';
 const routes: Array<RouteRecordRaw> = [
   {
     path: `/${Path.Home}`,
-    name: 'HomeView',
+    name: 'home',
     component: HomeView,
   },
   {
     path: `/${Path.SignIn}`,
-    name: 'SignInView',
+    name: 'sign-in',
     component: SignInView,
   },
   {
     path: `/${Path.SignInResult}`,
-    name: 'SignInResultView',
+    name: 'sign-in-result',
     component: SignInResultView,
+    props: true,
   },
 ];
 

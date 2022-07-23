@@ -13,7 +13,7 @@ export default defineComponent({
   name: 'HomeView',
   setup() {
     const onEntranceButtonClick = () => {
-      router.push({ path: `/${Path.SignIn}` });
+      router.push({ name: Path.SignIn });
     };
 
     return {

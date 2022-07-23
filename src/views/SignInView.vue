@@ -399,8 +399,16 @@ export default defineComponent({
           !isEmpty(signInFormData.userCardNumber.value.value4) &&
           !signInFormData.userCardNumber.isError
         ) {
-          // TODO 저장
-          router.push({ path: `/${Path.SignInResult}` });
+          router.push({
+            name: Path.SignInResult,
+            params: {
+              userEmail: signInFormData.userEmail.value,
+              userName: signInFormData.userName.value,
+              userPhone: signInFormData.userPhone.value,
+              userAddress: signInFormData.userAddress.value,
+              userPostcode: signInFormData.userPostCode.value,
+            },
+          });
         } else {
           signInFormData.userCardNumber.isError = true;
         }
