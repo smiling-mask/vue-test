@@ -39,9 +39,10 @@ body {
 }
 
 #container {
-  min-height: 25rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 75rem;
+  min-height: 25rem;
 }
 </style>

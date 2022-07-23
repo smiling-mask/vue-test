@@ -24,10 +24,6 @@ export default defineComponent({
 </script>
 
 <style>
-.home {
-  display: flex;
-}
-
 #entrance-button {
   padding: 0.5rem 6.25rem;
   font-weight: 700;
