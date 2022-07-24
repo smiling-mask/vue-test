@@ -6,8 +6,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
 import router from '@/router';
 import { Path } from '@/Constants';
+
+import './styles.css';
 
 export default defineComponent({
   name: 'HomeView',
@@ -22,19 +25,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-#entrance-button {
-  padding: 0.5rem 6.25rem;
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: #000000;
-  background-color: #ffffff;
-  border-radius: 0.25rem;
-}
-
-#entrance-button:hover {
-  cursor: pointer;
-  background-color: #383838;
-}
-</style>
