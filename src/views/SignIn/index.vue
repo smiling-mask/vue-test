@@ -92,8 +92,11 @@
 declare const window: any;
 
 import { defineComponent, ref, computed, reactive, watch } from 'vue';
+
 import router from '@/router';
 import { Path } from '@/Constants';
+
+import './styles.css';
 
 export default defineComponent({
   name: 'SignInView',
@@ -459,134 +462,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-.sign-in {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50rem;
-  margin: 2.5rem 0 3.75rem;
-  border: 0.25rem solid #383838;
-  border-radius: 0.25rem;
-}
-
-#sign-in-title {
-  width: 100%;
-  margin-top: 1.25rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-#sign-in-form {
-  width: 100%;
-}
-
-.sign-in-form-container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  margin-top: 2.5rem;
-}
-
-.sign-in-form-row {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.sign-in-form-row > label {
-  width: calc(30% - 1.25rem);
-  margin-left: 1.25rem;
-  font-weight: 700;
-  text-align: left;
-}
-
-.sign-in-form-row > input {
-  width: calc(70% - 1.875rem);
-  height: 2.25rem;
-}
-
-#sign-in-button-container {
-  width: calc(100% - 2.5rem);
-  display: flex;
-  justify-content: space-between;
-  margin: 2.5rem 0;
-}
-
-.sign-in-button {
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 0.25rem;
-  padding: 0.5rem 8.75rem;
-}
-
-.first-next-button {
-  width: 100%;
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 0.25rem;
-  padding: 0.5rem 0;
-}
-
-.last-next-button {
-  background-color: #383838;
-  color: #ffffff;
-  border-radius: 0.25rem;
-  padding: 0.5rem 8.75rem;
-}
-
-.first-next-button:hover,
-.sign-in-button:hover,
-#address-search-button:hover {
-  cursor: pointer;
-  background-color: #383838;
-}
-
-.last-next-button:hover {
-  cursor: pointer;
-  background-color: #101010;
-}
-
-#address-search-row {
-  width: calc(70% - 1.25rem);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-#address-search-row > input {
-  margin-top: 1.25rem;
-  width: calc(100% - 0.625rem);
-  height: 2.25rem;
-}
-
-#address-search-button {
-  width: 12.5rem;
-  padding: 0.25rem 0;
-  font-weight: 700;
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 0.5rem;
-}
-
-.user-card-number-row {
-  display: flex;
-  width: calc(100% - 1.25rem);
-  margin-right: 1.25rem;
-  justify-content: space-between;
-}
-
-.user-card-number-row > input {
-  width: calc(25% - 1.25rem);
-  height: 2.25rem;
-}
-
-.error-text {
-  margin: 0.75rem 0 0 30%;
-  color: #ff0000;
-  font-size: 0.75rem;
-  text-align: left;
-}
-</style>
